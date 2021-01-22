@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+Components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- CodeCell component - this will show the CodeEditor and Preview components
+- CodeEditor component - user writes code in here - sends it to CodeCell
+- Preview component - receives code from CodeCell and executes/displays code
 
-## Available Scripts
+Challenges
 
-In the project directory, you can run:
+- Code will be provided to Preview as a string; how to execute it safely? Does it have any errors in the code? Any security issues with doing that?
+- This code might have advanced JS syntax in it (like JSX) that the browser can’t execute
+- The code might have import statements for other JS files or CSS. Have to deal with those import statements before executing the code. Which module system to use? AMD, common js, or ES Modules?
 
-### `npm start`
+Solution for Transpiling
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Solution 1: Transpiler for advanced syntax (Babel); takes code that might not be supported and turns it into equivalent JS code (codepen.io & babeljs.io). Have the app take the users code, send to a backend remote API server where we run babel, transpile the users code and send back an immediate response with the transpiled code.
+- Solution 2: take code and put into the in-Browser transpiler, return transpiled result.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Solutions for import statements
 
-### `npm test`
+- Bundler for single files containing both modules linked together in some way. This will make sure the values we want to share get communicated over to the other module; import and export.
+- Bundler steps: Read the contents of the entry file (index.js)
+- Automatically found all the different require/import/export statements
+- Automatically found all the modules on the hard drive; instead of this I need the bundler to automatically find all the modules the user has imported from NPM.
+- Could use the NpmInstallWebpackPlugin for this instead of webpack throwing an error like it would usually
+- Or write custom plugin for the app to make a request itself to the NPM registry, return it and pass back to webpack top continue bundling; this way we don’t actively save the dependency on to the local machine, we would just reach out every time someone needs the code (cache the result)
+- Or implement webpack processing directly into the react app rather than the backend making requests to the API (slowing the process down). It would then be the users machine downloading the files as opposed to the requests being made from my server. Although, webpack doesn’t work in the browser… can use ESBuild instead, it can transpile + bundle the code in the browser and is much quicker than webpack and other options (https://esbuild.github.io/api/#simple-options)
+- Linked these files together into a single output file with all values being correctly communicated around
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Pros for each approach
+Remote
 
-### `npm run build`
+- Can cache downloaded NPM modules to bundle code faster
+- Will work better for users with slow devices or limited internet connections
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  Local
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Removes an extra request to the API server; faster code execution
+- We don’t have to maintain an API server
+- Less complexity - no moving code back and forth
