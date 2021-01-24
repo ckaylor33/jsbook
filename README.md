@@ -28,6 +28,7 @@ Solutions for import statements
 - Problem: for ESBuild to transpile and bundle code it needs access to a file system to look for it, browser has no access to any file system to do this. Don't want ESBuild to look at dependencies - so back to the other solution of writing a plugin to fetch individual files from NPM. Whenever ESBuild tries finding a path for a dependency I hijack this and fetch it myself from the NPM registry - take the URL that NPM gives and provide it to ESBuild to get the source code for the dependency
 - Because of a CORS error when fetching for NPM can't reach out to NPM directly; can use UNPKG to gain access to NPM registry instead, redirects to current version of the package and gives us the main file for that package to hand to ESBuild. Need to generate paths using URL constructor in case of different scenarios where NPM is imported or required in a different way (the required path points to a secondary path/relative path that has a ./ or ../)
 - Caching layer to stop so many requests and improve performance. Local storage? IndexedDB for more storage? Localforage library to help working with IndexedDB and uses local storage as a fallback option in case no IndexedDB or WebSQL support
+- Can't bundle CSS into a seperate grouping of CSS files with esbuild. need to take CSS, wrap inside of JS and use JS to append into the DOM
 
 Pros for each approach
 Remote
