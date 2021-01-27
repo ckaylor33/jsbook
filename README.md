@@ -63,6 +63,17 @@ Creating markdown editor component
 - react-md-editor component npm pakcage to show mardown editor and preview window
 - Need to fix a couple of styling bits: drag element, span for divider. Some of the text formatting needs fixing also
 
+Redux store
+
+- Action creators: updateCell(synchronous), deleteCell(synchronous), insertCellBefore/After(in between existing cells - synchronous), moveCell(synchronous), fetchCells(asynchronous)
+- Two reducers: cells and bundles
+- Cells: data(object with cell ID and cell type - code or text), loading(Boolean whether fetching data), error(related to saving cells), order(order of cells array of strings, each string is id of each cell)
+- bundles: data(bundle for each cell)
+
+Additional features ideas
+
+- Additional language support
+
 Pros for each approach
 Remote
 
