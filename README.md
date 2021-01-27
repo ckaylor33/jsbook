@@ -56,6 +56,12 @@ Displaying code editor
 - CodeMirror: easy to use, doesn't have as many out-of-the-box features
 - Ace Editor: moderately easy to use, widely used
 - Monaco Editor: hardest to set up, gives an almost perfect editing experience immediately; same editor as VSC, can use react component to take care of the setup
+- Use react-resizer for the draggable code editor and preview window resizing component
+
+Creating markdown editor component
+
+- react-md-editor component npm pakcage to show mardown editor and preview window
+- Need to fix a couple of styling bits: drag element, span for divider. Some of the text formatting needs fixing also
 
 Pros for each approach
 Remote
