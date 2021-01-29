@@ -71,6 +71,11 @@ Redux store
 - bundles: data(bundle for each cell)
 - Update state logic getting very complex, any way to simplify? Immer?
 
+Binding react with redux
+
+- cell-list and cell-list-item components creation. Map over order to pick from data object to get correct order
+-
+
 Additional features ideas
 
 - Additional language support
