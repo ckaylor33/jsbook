@@ -74,7 +74,12 @@ Redux store
 Binding react with redux
 
 - cell-list and cell-list-item components creation. Map over order to pick from data object to get correct order
--
+
+Connecting bundles in Redux
+
+- Bundle state is derived from cells state, it's value depends entirely on another value stored in state and nothing else; in general this should be avoided. Can use useTypedSelector when we have a synchronous calculation - but we have asynchronous
+- Create bundles reducer consisting of bundles start and bundles complete
+- Create action creators to dispatch initial bundle start and bundle complete from the same creator
 
 Additional features ideas
 
